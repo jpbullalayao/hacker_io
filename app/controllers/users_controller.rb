@@ -12,7 +12,9 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-			# Handle a successful save.
+			flash[:success] = "Welcome to hacker.io!"
+			# Redirect to user show page
+			redirect_to @user
 		else
 			render 'new'
 		end
@@ -29,8 +31,8 @@ class UsersController < ApplicationController
 
 	private
 
-		# STRONG PARAMETERS
+		# STRONG PARAMETERS, USER SIGNUP FORM
 		def user_params
-			params.require(:user).permit(:email, :password, :password_confirmation)
+			params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
 		end
 end
