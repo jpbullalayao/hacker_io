@@ -10,6 +10,12 @@ class UsersController < ApplicationController
 	end
 
 	def create
+		@user = User.new(user_params)
+		if @user.save
+			# Handle a successful save.
+		else
+			render 'new'
+		end
 	end
 
 	def edit
@@ -20,4 +26,11 @@ class UsersController < ApplicationController
 
 	def destroy 
 	end
+
+	private
+
+		# STRONG PARAMETERS
+		def user_params
+			params.require(:user).permit(:email, :password, :password_confirmation)
+		end
 end
